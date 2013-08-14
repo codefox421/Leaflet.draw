@@ -34,12 +34,16 @@ L.EditToolbar.Edit = L.Handler.extend({
 			.on('layerremove', this._disableLayerEdit, this);
 
 		this.fire('enabled', {handler: this.type});
+
+		this._map.fire('draw:editstart');
 	},
 
 	disable: function () {
 		if (!this._enabled) { return; }
 
 		this.fire('disabled', {handler: this.type});
+
+		this._map.fire('draw:editstop');
 
 		this._featureGroup
 			.off('layeradd', this._enableLayerEdit, this)
